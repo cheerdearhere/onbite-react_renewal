@@ -1,7 +1,8 @@
 
 ---
 
-[JS 변수~연산자]
+
+[JS 변수~연산자](JS_variableTypeOperator.md)
 
 [JS 제어문]
 
