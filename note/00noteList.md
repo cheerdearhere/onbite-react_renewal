@@ -4,7 +4,7 @@
 
 [JS 변수~연산자](JS_variableTypeOperator.md)
 
-[JS 제어문]
+[JS 제어문](JS_ControlStatement.md)
 
 [JS 함수]
 
