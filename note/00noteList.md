@@ -6,7 +6,7 @@
 
 [JS 제어문](JS_ControlStatement.md)
 
-[JS 함수]
+[JS 함수](JS_Function.md)
 
 [JS 객체와 배열]
 
