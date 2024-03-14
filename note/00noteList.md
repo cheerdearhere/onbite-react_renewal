@@ -8,7 +8,7 @@
 
 [JS 함수](JS_Function.md)
 
-[JS 객체와 배열]
+[JS 객체와 배열](JS_Collection.md)
 
 [JS 유용한 기능]
 
