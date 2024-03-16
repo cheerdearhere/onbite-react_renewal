@@ -12,7 +12,7 @@
 
 [JS 유용한 기능](JS_UsefulThings.md)
 
-[JS 동기와 비동기]
+[JS 동기와 비동기](JS_Synchronize.md)
 
 [Node 기초]
 
