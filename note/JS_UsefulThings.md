@@ -199,6 +199,226 @@ for(let key in person){
 }
 ```
 # VII. 배열 관련 메서드
+## A. 요소 조작
+```javascript
+let arr = [1,2,3];
+```
+### 1. push();
+- 배열의 마지막 요소 뒤에 추가됨
+- 여러개를 한번에 삽입 가능
+- 삽입 후 배열 길이 반환
+```javascript
+arr.push(4);//[1,2,3,4]
+let arrLength = arr.push(5,6,7);//[1,2,3,4,5,6,7]
+```
+### 2. pop();
+- stack 구조처럼 LIFO(last in fist out) 처리
+- 배열의 마지막 요소를 꺼내고 지움
+```javascript
+let lastEl = arr.pop();
+//lastEl: 7, arr: [1,2,3,4,5,6]
+```
+### 3. shift();
+- queue 구조처럼 FIFO(fist in first out) 처리
+- 배열의 제일 앞 요소를 꺼내고 지움(나머지 요소들 당겨옴)
+```javascript
+let firstEl = arr.shift();
+//lastEl: 1, arr: [2,3,4,5,6]
+```
+### 4. unshift();
+- 배열의 제일 앞에 요소를 추가하고 다른 요소들을 뒤로 미룸
+- 삽입 후 배열 길이 반환
+```javascript
+arr.unshift(1);
+let arrLength = aarr.unshift(-3,-2,-1,0);
+```
+### 5. slice();
+- slice(startIndex, endIndex+1);
+- endIndex+1을 생략하면 시작지점부터 끝까지
+- startIndex에 음수를 입력하면 배열의 끝에서 자리를 세기 시작
+- 배열의 특정 범위를 잘라 새로운 배열로 반환
+- 원본배열에는 영향을 안줌
+```javascript
+let arrA = arr.slice(3,6);//index3,index4,index5
+let arrA = arr.slice(3);//index3~index[length-1]
+let arrA = arr.slice(-3);//index[length-4] ~ index[length-1]
+```
+### 6. concat();
+- 앞에 놓일 배열.concat(뒤에 추가될 배열);
+```javascript
+let arrA = [1,2,3];
+let arrB = [4,5];
+let concatedArr = arrA.concat(arrB); //[1,2,3,4,5]
+```
+## B. 순회와 탐색
+### 1. forEach();
+- array.forEach(function (item,idx,arr){...});
+- 배열을 index 순서대로 순회하면서 작업 진행
+```javascript
+let arr = [1,2,3];
+arr.forEach((i,idx,arrP)=>{
+   console.log({
+     item: i,
+     index: idx,
+     thisArr: arrP
+   }); 
+});
+```
+- 내부 콜백에서 안쓰는 매개변수는 굳이 쓰지않아도 됨
+```javascript
+arr.forEach((i,idx)=>console.log(i+idx));
+```
+### 2. includes()
+- 배열에 해당 요소가 있는지 확인해서 boolean으로 반환
+```javascript
+arr.includes(3);
+```
+### 3. indexOf()
+- 배열에 해당 요소가 있는 위치(index)를 반환
+- 중복값이 있는경우 제일 앞에 있는 요소의 위치만 반환
+- 값이 없는 경우 -1 반환
+```javascript
+arr.indexOf(3);
+```
+### 4. findIndex()
+- findIndex(()=>{...});
+- 주로 object가 요소일때 사용
+- 내부 콜백의 return이 true인 대상 중 제일 앞 요소의 index 반환
+```javascript
+arr.findIndex(item=>{
+    if(item%2===1)
+        return true;
+});
+```
+- 중간처리 없이 조건만 찾는 경우 더 축약
+```javascript
+arr.findIndex(i=>i===1);
+```
+### 5. find()
+- findIndex와 유사
+- 만족하는 요소를 그대로 반환
+```javascript
+let three= arr.find(item=>item===3);
+```
+## C. 배열 변형
+### 1. filter();
+- 콜백함수를 만족하는 요소를 새로운 배열로 만들어 반환
+```javascript
+let arr =[
+    {name: "홍길동", hobby: "soccer"},
+    {name: "김유신", hobby: "soccer"},
+    {name: "이순신", hobby: "golf"},
+];
+let soccerTeam = arr.filter(student=>student.hobby==="soccer");
+```
+### 2. map();
+- 배열의 모든 요소를 순회하면서 각각 콜백함수를 실행하고 결과로 이뤄진 배열을 반환
+```javascript
+let arr = [1,2,3];
+let resultArr = arr.map((i,idx)=>{
+    console.log(`${i}. ${arr[idx]}`);
+    return item * 2;
+})
+console.log(resultArr);
+```
+### 3. sort();
+- default : 사전순 정렬(숫자의 대소가 아님)
+- 원본을 수정
+```javascript
+let arr = ['v','d','a','c'];
+arr.sort();
+```
+- 대상 비교방식 지정
+- 숫자의 경우 
+  - 양수가 나오면 b가 a 앞에
+  - 음수가 나오면 a가 b 앞에
+  - 0이 나오면 변동x
+```javascript
+let arr = [5,2,1,4,3];
+arr.sort((a,b)=>{
+  if(a>b)
+      return 1;//b, a
+  else if(a<b)
+      return -1;//a, b
+  else
+      return 0;// 유지
+});
+```
+- 그냥 부호 문제이므로 
+```javascript
+arr.sort((a,b)=>a-b);
+```
+- ASC, DESC
+```javascript
+arr6.sort((a,b)=>a-b);//1,2,3,4,5
+arr6.sort((a,b)=>b-a);//5,4,3,2,1
+```
+### 4. toSorted()
+- sort와 같은 방식
+- 단, 원본은 건들지 않음
+```javascript
+let arr = [5,2,1,4,3];
+let sortedArr = arr.toSorted((a,b)=>a-b);
+console.log({arr,sortedArr});
+```
+### 5. join()
+- 배열의 모든 요소를 하나의 문자여롤 합쳐줌
+- join()
+  - default: 구분자를 , 사용
+```javascript
+let arr = ["he","is","computer"];
+let str = arr.join();//he,is,computer
+let sepStr = arr.join(" ");//he is computer
+```
 # IIX. Date 객체
-
-
+## A. 생성하기
+- 생성자 사용
+  - parameter로 다양한 형식 사용
+```javascript
+let date1 = new Date();// default: 현재 날짜
+let date2 = new Date("1997-01-01");// 지정한 날짜
+let date3 = new Date("1998. 01. 01");
+let date4 = new Date("1999/01/01");
+```
+  - hh:mm:ss 지정하면 시간도 지정
+```javascript
+let dateTime1 = new Date("2000/01/01/10:10:10");
+```
+## B. 타임 스탬프
+- UTC(세계협정시)인 1970.01.01 00:00:00부터 몇 ms가 지났는지 체크
+```javascript
+let timeStamp = date1.getTime();
+//이것을 Date 객체로 사용하면 같은 시간을 대상으로 함
+let date5 = new Date(timeStamp);
+```
+- 시관관련 연산할때 유용
+## C. 시간요소들 추출
+- month는 배열처럼 0부터 시작
+- 실제 우리가 사용하는 월로 하려면 +1
+```javascript
+let year = date1.getFullYear();
+let month = date1.getMonth()+1;
+let day = date1.getDate();
+let hour = date1.getHours();
+let minute = date1.getMinutes();
+let second = date1.getSeconds();
+let milliSecond = date1.getMilliseconds();
+```
+## D. 시간 수정하기
+- set{대상}
+- 마찬가지로 month는 0~11
+```javascript
+date5.setFullYear(2000);
+date5.setMonth(2);
+date5.setDate(30);
+date5.setHours(23);
+date5.setMinutes(59);
+date5.setSeconds(58);
+date5.setMinutes(99);
+```
+## E. 시간을 여러 포멧으로 출력
+- 좀더 자세한 컨트롤도 가능
+```javascript
+console.log(date5.toDateString());//영어식 표시
+console.log(date5.toLocaleDateString());//timeZone
+```
