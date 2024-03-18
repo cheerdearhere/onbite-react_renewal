@@ -2,7 +2,7 @@
 ---
 
 
-[JS 변수~연산자](JS_variableTypeOperator.md)
+[JS 변수~연산자](JS_VariableTypeOperator.md)
 
 [JS 제어문](JS_ControlStatement.md)
 
@@ -14,7 +14,7 @@
 
 [JS 동기와 비동기](JS_Synchronize.md)
 
-[Node 기초]
+[Node 기초](Node_Init.md)
 
 [React 입문]
 
