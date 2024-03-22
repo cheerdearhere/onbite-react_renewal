@@ -1,3 +1,6 @@
+
+
+[실습코드](../section05)
 # I. React 개요
 - 특징
   - 컴포넌트 기반 구성
@@ -205,4 +208,235 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     "react/prop-types": "off",
   },
 }
+```
+
+# V. Component
+- JSX를 반환하는 함수: 컴포넌트 이름 첫 문자는 Upper class
+## A. 선언
+  - 함수 선언식
+```javascript
+function Hello(props){
+    const {color, name, isSpecial} = props;
+    return (
+        <div style={{color}}>
+          {isSpecial && <b>*</b>}
+          안녕하세요 {name}
+        </div>
+    )
+}
+```
+  - 화살표 함수
+```javascript
+const Hello=({color, name, isSpecial})=>{
+    return (
+            <div style={{color}}>
+              {isSpecial && <b>*</b>}
+              안녕하세요 {name}
+            </div>
+    )
+}
+```
+  - class 이용(거의 사용 x)
+```javascript
+class Hello extends Component {
+  render() {
+    const { color, name, isSpecial } = this.props;
+    return (
+      <div style={{ color }}>
+        {isSpecial && <b>*</b>}
+        안녕하세요 {name}
+      </div>
+    );
+  }
+}
+```
+## B. 호출
+- 외부 컴포넌트 내에 JSX 태그로 호출
+```javascript
+function App() { //부모 컴포넌트
+  return (
+          <>
+            <Header/> // 자식 컴포넌트
+            <h1>Default Module for studying React!!</h1>
+          </>
+  );
+};
+```
+- 보통 root component(최상위 컴포넌트)는 App을 사용
+
+# VI. JSX
+- 원래 javascript는 html을 반환할 수 없음
+- 이를 위한 js의 확장: jsx
+## A. javascript 기능 사용하기
+- 반환하는 jsx 내에서 {}안에서는 javascript문으로 사용
+- 숫자, 문자, 배열만 표시 (boolean, undefined 등은 표시안됨)
+- 모든 태그는 닫혀있어야 한다
+  - 열린 태그: `</>`
+  - 닫힌 태그: `<></>`
+- 최상위 태그는 하나여야한다.(return 뒤에오는 태그) 
+  - 최상위 태그를 지정하지 않을 것이라면 빈태그(`<></>)라도 사용
+```javascript
+const Main = ()=>{
+    const number = 10;
+    const object = {
+      name: "홍길동"  
+    };
+    return (
+        <main>
+          {
+            // 연산, 삼항연산, 맥락검사 등 사용가능
+          }
+            <h2>num: {number*2}</h2>
+            <h3>{number % 2 === 1 ? "홀수 입니다": "짝수 입니다"}</h3>
+          {[1,2,3]}
+          {true}
+          {null}
+          {undefined}
+          {
+              //object 특히 객체는 에러를 발생시킨다. 
+          }
+          {object.name}// object.key로 호출
+        </main>
+    );
+};
+```
+## B. 스타일 지정
+### 1. inline style
+- Object를 사용해 style을 구성
+  - css에서 사용하는 Kebab-case를 CamelCase로 사용
+```jsx
+<div
+    style={{
+        backgroundColor: "red",
+        borderBottom: "5px solid blue",
+    }}
+>
+</div>
+```
+### 2. outline style
+- 대상을 className으로 지정
+- CSS파일을 사용해서 import하기
+```jsx
+import "./Main.css";
+//...
+<div className="user_container">
+</div>
+```
+
+# VII. props
+- props는 단방향. 부모에서 자식으로만 전달가능하다. 
+- 전역에서 관리할 경우 Context나 관련 라이브러리의 도움이 필요하다
+  - redux/ recoil 등
+- 같은 기능을 담당하는 여러 컴포넌트가 있을때 하나의 컴포넌트를 만들고 그것의 properties로 조절해 사용
+- props는 obj의 형태
+```jsx
+const Button = (props)=>{
+    const {text} = props;
+    return (
+        <button>{text}</button>
+    );
+}
+```
+- 부모 컴포넌트에서 props의 요소를 전달
+```jsx
+        <main>
+  {/*<JSXBasic/>*/}
+  <Button text={"메일"}/>
+  <Button text={"카페"}/>
+  <Button text={"블로그"}/>
+</main>
+```
+- props가 필수로 전달되지 않을 경우 대피는 필수
+```jsx
+const Main = ()=>{
+  return (
+          <main>
+            {/*<JSXBasic/>*/}
+            <Button text={"메일"} color={"red"}/>
+            <Button text={"카페"} color={"blue"}/>
+            <Button text={"검색"}/>
+          </main>
+  );
+};
+```
+```jsx
+const Button = ({text, color})=>{
+    return (
+        <button
+            style={{color}}
+        >
+            {text}
+        </button>
+    );
+}
+//default 사용
+Button.defaultProps ={
+    color: "black"
+};
+```
+- 객체와 관련된 여러 함수를 사용하면 편리
+
+```jsx
+const buttonProps = {
+  text: "메일",
+  color: "red",
+  init: 3,
+  //...
+}
+return (
+        <Button {...buttonProps}/>
+)
+```
+```jsx
+const Button = ({text, color, init})=>{
+    //,,,
+}
+```
+- child element(html tag, jsx component)도 전달 가능
+```jsx
+const Button = ({text, color, children})=>{
+  //,,,
+  {children}
+}
+```
+
+```jsx
+
+<Button text="태그">
+  <h3>html</h3>
+  <Header/>
+</Button>
+```
+# IIX. Event Handling
+- inline: 직접 리스너에 반응할 콜백 작성하기
+```jsx
+        <button
+        style={{color}}
+        onClick={()=>{
+          console.log(text);
+        }}
+>
+```
+- 컴포넌트 내부에 함수선언하고 콜백으로 연결하기
+  - 콜백과 마찬가지로 ()를 사용하면 함수의 결과undefined만 가져오므로 주의 
+```jsx
+    const handlerClickBtn = ()=>{
+        console.log(text);
+    }
+    return (
+        <button
+            style={{color}}
+            onClick={handlerClickBtn}
+        >
+        </button>
+    );
+```
+- event object: SyntheticBaseEvent(합성 이벤트 객체) 
+  - 여러 브라우저의 이벤트 객체가 다 달라지면 문제가 많으므로 이를 통일된 규격으로 통일시켜줌
+  - 브라우저 종류를 생각하지 않아도 된다는 장점
+  - 이벤트와 관련된 정보를 제공
+```jsx
+    const handlerClickBtn = (e)=>{
+        console.log(e);//SyntheticBaseEvent
+    }
 ```
