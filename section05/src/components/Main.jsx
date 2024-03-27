@@ -1,5 +1,6 @@
 import "../Main.css"
 import Button from "./Button.jsx";
+import StateComponent from "./StateComponent.jsx";
 
 const JSXBasic = ()=>{
     const number = 10;
@@ -22,15 +23,16 @@ const JSXBasic = ()=>{
 };
 const Main = ()=>{
     return (
-        <main>
+        <main className="main_container">
             {/*<JSXBasic/>*/}
-            <Button text={"메일"} color={"red"}/>
-            <Button text={"카페"} color={"blue"}/>
-            <Button text={"검색"}/>
-            <Button text="태그">
-                <h3>html</h3>
-                <JSXBasic/>
-            </Button>
+            {/*<Button text={"메일"} color={"red"}/>*/}
+            {/*<Button text={"카페"} color={"blue"}/>*/}
+            {/*<Button text={"검색"}/>*/}
+            {/*<Button text="태그">*/}
+            {/*    <h3>html</h3>*/}
+            {/*    <JSXBasic/>*/}
+            {/*</Button>*/}
+            <StateComponent></StateComponent>
         </main>
     );
 };
