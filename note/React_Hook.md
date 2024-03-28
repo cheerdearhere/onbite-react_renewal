@@ -302,3 +302,10 @@ function useInput(){
 
 ![카운터 앱 설계](img/project01_counterApp.png)
 
+<details >
+  <summary>1. state는 어디서 관리할 것인가? </summary>
+- 자식 컴포넌트 사이에서 직접 데이터를 주고받을 수없다<br/>
+- 부모 컴포넌트에서 state 사용<br/>
+<b>: App.jsx</b>
+</details>
+
