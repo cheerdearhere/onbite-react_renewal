@@ -196,6 +196,104 @@ const onChangeNation =e=>{
     <br/>
     {user.name}
 ```
-# II. Ref
+# II. Ref: reference Object 생성
+## A. 기능
+- 컴포넌트 내부의 변수로 활용 가능
+- useState와 비교
+  - 공통점
+    - 컴포넌트 내부의 변수로 활용 가능
+  - 차이점
+    - useState : 값이 변경되면 re-rendering 
+    - useRef   : 값이 변경되도 랜더링되지 않음
+      - 랜더링하지 않는 변수 사용
+        - 내부에서만 작동하는 값으로 사용하기 좋음
+      - V-DOM 접근
+## B. 선언하기
+- `import {useRef} from react;`
+```jsx
+    const refObject = useRef();
+```
+- 구조
+  > {current: 값}
+## C. 값 변동에 대한 반응
+- 어떤 element에 이벤트 리스너 지정
+```jsx
+onClick(()=>{
+    regObject.current++;
+    console.log(regObject.current);
+})
+```
+- 값은 변해도 리랜더링을 진행하지 않는다
+## D. DOM elements 접근하기
+- Ref를 위한 객체 생성
+- 대상 DOM element ref attribute 지정
+- onClick callback
+- 콜백에 ref.current로 DOM 접근
 
-# 
+- name 예시
+```jsx
+const nameInputRef = useRef();
+const onSubmit=()=>{
+  if(user.name===""||user?.name.trim()==="")
+    nameInputRef.current.focus();
+}
+
+//... return
+<input
+        name="name"
+        placeholder="name"
+        onChange={onChangeUser}
+        value={user.name}
+        ref={nameInputRef}//ref로 지정
+/>
+```
+## E. Ref(값) vs 일반 상수
+- 값이 변경되면 결국 리랜더링이 진행된다. 이때
+  - Ref는 랜더링 과정을 무시한다
+  - 상수는 함께 랜더링되어 초기화 된다.
+- 물론 컴포넌트 외부에 선언해서 사용해도 리랜더링에서 제외되므로 사용할 수 있지만
+- 같은 컴포넌트를 두번 호출하면 두 컴포넌트가 하나의 대상을 공유하게 되어 원하는 기능을 해칠 수 있다
+  - 가능한 전역변수는 사용하지 않는 것이 좋음
+
+# III. react Hooks
+[실습](../section05/src/components/Hook_example.jsx)
+- use-로 시작하는 함수
+```jsx
+function useInput(){...}
+```
+- class component >>> function component
+  - class 컴포넌트는 문법이 복잡해 그것을 함수형에서 사용하도록함 
+  - State, Ref, ... >>> useState, useRef, ...
+- 주의사항
+  - 함수 컴포넌트 내에서만 사용
+  ```jsx
+  import {useState} from "react";
+  // const globalState = useState("error");
+  const Hook_example = ()=>{ //...
+  ```
+  - 조건문, 반복문 등 내부 스코프에서는 호출 불가. 
+    - 컴포넌트 스코프에서 생성한 것은 사용은 가능
+  ```jsx
+  const [state, setState] = useState(0);
+  // if(state > 0)
+  //      const conditionState = useState(32);
+  // for(let i = 0;i<10;i++)
+  //     const iterateState = useState(i);
+  return <h1>hook example</h1>;
+  }
+  ```
+## A. customizing Hook
+- 반복적 처리를 별도의 함수로 빼서 사용
+  - 이름이 use로 시작할 것
+  - return과 함께 사용
+  - hook도 따로 보관
+```jsx
+function useInput(){
+  const [input,setInput] = useState("");
+  const onChangeInput = e=>{
+    // 중간 처리 코드
+    setInput(e.target.value);
+  }
+  return [input,onChangeInput];
+}
+```
