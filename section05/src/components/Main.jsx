@@ -1,6 +1,7 @@
 import "../Main.css"
 import Button from "./Button.jsx";
 import StateComponent from "./StateComponent.jsx";
+import CounterApp from "../counterApp/CounterApp.jsx";
 
 const JSXBasic = ()=>{
     const number = 10;
@@ -32,7 +33,8 @@ const Main = ()=>{
             {/*    <h3>html</h3>*/}
             {/*    <JSXBasic/>*/}
             {/*</Button>*/}
-            <StateComponent></StateComponent>
+            {/*<StateComponent></StateComponent>*/}
+            <CounterApp/>
         </main>
     );
 };
