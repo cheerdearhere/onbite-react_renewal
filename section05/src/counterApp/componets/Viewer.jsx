@@ -4,9 +4,9 @@ const Viewer = ({result, formula})=>{
         <div>
             <h4>현재 카운트: </h4>
             <div>
-                {result}
+                <h1>{result}</h1>
             </div>
-            <div>식: {formula||"no data"}</div>
+            <div className={"counter_formula"}>식: {formula||"no data"}</div>
         </div>
     )
 }

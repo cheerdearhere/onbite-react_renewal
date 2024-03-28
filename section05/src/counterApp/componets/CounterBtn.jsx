@@ -4,7 +4,7 @@ const CounterBtn = ({number, onClickHandler})=>{
         onClickHandler(number);
     }
     return (
-        <button
+        <button className="counter_btn"
             onClick={addNum}
         >
             {number}

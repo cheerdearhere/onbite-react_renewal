@@ -1,15 +1,20 @@
+import "./assets/css/CounterAppCSS.css";
+
 import Viewer from "./componets/Viewer.jsx";
-import {useState} from "react";
 import Controller from "./componets/Controller.jsx";
 import useCounterApp from "./hooks/useCounterApp.js";
 
 const CounterApp = ()=>{
     const [formula, result, btnHandler] = useCounterApp();
     return (
-        <div>
+        <div className="counter_app">
             <h1>Simple Counter</h1>
-            <Viewer result={result} formula={formula}/>
-            <Controller  onclickHandler ={btnHandler}/>
+            <section>
+                <Viewer result={result} formula={formula}/>
+            </section>
+            <section>
+                <Controller  onclickHandler ={btnHandler}/>
+            </section>
         </div>
     )
 }
