@@ -69,3 +69,10 @@ useEffect(() => {
 
 - [react 개발자 도구](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=ko)
   - state 관리, 크롬 작업자 도구 관련 기능, 리랜더링 추적 가능
+
+
+# IV. 실습 프로젝트: [todo 앱](../section06)
+
+# V. useReducer todo 앱에 적용하기
+## A. useReducer
+## B. todo 앱에 이어서 적용
