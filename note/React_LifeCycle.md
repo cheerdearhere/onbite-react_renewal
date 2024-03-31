@@ -73,6 +73,46 @@ useEffect(() => {
 
 # IV. 실습 프로젝트: [todo 앱](../section06)
 
-# V. useReducer todo 앱에 적용하기
+# V. [useReducer](../section07)
 ## A. useReducer
+- useReducer : 컴포넌트 내부에서 새로운 State를 생성하는 hook
+- useState 대체 가능(거의 유사)
+- state와 그와 관련된 함수를 컴포넌트와 분리할 수 있음
+  - 컴포넌트는 랜더링을 주목적으로 사용하고 상태관리를 분리하면 편리함
+- react의 library
+```jsx
+import {useReducer} from 'react';
+```
+- 호출
+  - state: 상태 값
+  - dispatch: 상태변화 감지 함수
+  - reducer: 상태 변화를 진행할 함수
+  - initValue: 초기값
+```jsx
+const [state, dispatch] = useReducer(reducer, initValue);
+```
+- dispatch function 사용
+```jsx
+const increaseHandler = ()=>{
+  // 상태변화 감지함수(dispatch)에 변동 정보(acrtion object) 전달
+  dispatch({
+    type: "INCREASE",
+    data: 1,
+  });
+}
+```
+- 상태변환 함수(reducer) 작성하기
+  - 변환기(reducer)의 return 값이 state 
+  - 주로 switch-case 사용
+```jsx
+function reducer (state,action){
+    const {type, data} = action;
+    switch(type){
+      case "INCREASE":
+          return state + data;
+      case "DECREASE":
+          return state - data;
+    }
+}
+```
 ## B. todo 앱에 이어서 적용
