@@ -1,0 +1,21 @@
+.editorContainer{
+    display: flex;
+    gap: 10px;
+}
+.editorContainer input {
+    flex:1;
+    padding: 15px;
+    border: 1px solid rgb(220,220,220);
+    border-radius: 5px;
+}
+/*.editorContainer input:focus{*/
+/*    border: 1px solid rgb(37, 147, 255);*/
+/*}*/
+.editorContainer button{
+    cursor: pointer;
+    width: 80px;
+    border: none;
+    border-radius: 10px;
+    background-color: rgb(37, 147, 255);
+    color: #fff;
+}
