@@ -1,7 +1,7 @@
 import "../assets/css/List.css";
 import Item from "./Item.jsx";
 import {useMemo, useState} from "react";
-const List = ({todos, onUpdate, onDelete})=>{
+const List = ({todos})=>{
     const [search,setSearch] = useState("");
     const onSearch = (e)=>{
         setSearch(e.target.value);
@@ -49,8 +49,6 @@ const List = ({todos, onUpdate, onDelete})=>{
                         <Item
                             key={`todo${item.id}`}
                             {...item}
-                            onUpdate={onUpdate}
-                            onDelete={onDelete}
                         />
                     )
                 })}

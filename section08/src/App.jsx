@@ -3,7 +3,7 @@ import Header from "./components/Header.jsx";
 import Editor from "./components/Editor.jsx";
 import List from "./components/List.jsx";
 import Footer from "./components/Footer.jsx";
-import {useCallback, useEffect, useReducer, useRef, useState} from "react";
+import {createContext, useCallback, useEffect, useMemo, useReducer, useRef, useState} from "react";
 import useTodos from "./Entities/mockTodoList.js";
 
 function reducer(state, {type, data}){
@@ -41,6 +41,8 @@ function reducer(state, {type, data}){
     ];
     return todoFnc[type].actionFnc();
 }
+export const TodoStateContext = createContext();
+export const TodoDispatchContext = createContext();
 function App() {
     const [mockData,todoForm] = useTodos();
     const [todos, dispatch] = useReducer(reducer,[]);
@@ -81,15 +83,24 @@ function App() {
             data: targetId,
         });
     },[]);
+    const memoizedDispatch=useMemo(()=>{
+        return {
+            updateTodo,
+            deleteTodo,
+        }
+    });
     return (
         <div className="App">
             <Header/>
-            <Editor onCreate={createTodo}/>
-            <List
-                todos={todos}
-                onUpdate={updateTodo}
-                onDelete={deleteTodo}
-            />
+            <TodoStateContext.Provider value={todos}>
+                <TodoDispatchContext.Provider value={memoizedDispatch}>
+                    <Editor onCreate={createTodo}/>
+                    <List
+                        todos={todos}
+                    />
+                </TodoDispatchContext.Provider>
+            </TodoStateContext.Provider>
+
             <Footer/>
         </div>
     )

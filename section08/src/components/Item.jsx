@@ -1,12 +1,15 @@
 import "../assets/css/Item.css";
-import {memo} from "react";
+import {memo, useContext} from "react";
+import { TodoDispatchContext} from "../App.jsx";
 
-const Item = ({id,isDone,content,date,onUpdate,onDelete})=>{
+const Item = ({id,isDone,content,date})=>{
+    const { updateTodo, deleteTodo } = useContext(TodoDispatchContext);
+
     const onChangeCheckbox =()=>{
-        onUpdate(id);
+        updateTodo(id);
     }
     const onDeleteBtn =()=>{
-        onDelete(id);
+        deleteTodo(id);
     }
     return (
         <div className={`TodoItem ${isDone?"done":"yet"}`}>
